@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookStore Landing Page</title>
+    <meta name="description" content="Lovable Generated Project" />
+    <meta name="author" content="Lovable" />
+    <meta property="og:image" content="/og-image.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bookPrimary: #8B4513;
+        --bookSecondary: #FFF8DC;
+        --bookAccent: #DAA520;
+        --bookText: #333333;
+        --bookBg: #FAFAFA;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bookBg);
+        color: var(--bookText);
+      }
+
+      .header {
+        position: fixed;
+        width: 100%;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 50;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 4rem;
+      }
+
+      .logo {
+        font-family: 'Merriweather', serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--bookPrimary);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-buttons {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+        padding: 0.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .hero-section {
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+        background: linear-gradient(to right, var(--bookSecondary), white);
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+      }
+
+      .hero-text h1 {
+        font-family: 'Merriweather', serif;
+        font-size: 2.5rem;
+        color: var(--bookPrimary);
+        margin-bottom: 1rem;
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      .hero-image img {
+        max-width: 100%;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        animation: fadeIn 0.5s ease-out 0.3s both;
+      }
+
+      .books-section {
+        padding: 3rem 0;
+        background-color: var(--bookSecondary);
+      }
+
+      .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+      }
+
+      .book-card {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .book-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .book-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .book-title {
+        font-family: 'Merriweather', serif;
+        font-weight: bold;
+        color: var(--bookPrimary);
+        margin-bottom: 0.5rem;
+      }
+
+      .book-price {
+        color: var(--bookAccent);
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        padding: 0.5rem;
+        background-color: var(--bookPrimary);
+        color: white;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+      }
+
+      .add-to-cart-btn:hover {
+        opacity: 0.9;
+      }
+
+      .newsletter-section {
+        padding: 3rem 0;
+        text-align: center;
+      }
+
+      .newsletter-form {
+        max-width: 32rem;
+        margin: 0 auto;
+      }
+
+      .newsletter-input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+      }
+
+      .footer {
+        background-color: var(--bookPrimary);
+        color: white;
+        padding: 2rem 0;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-section h4 {
+        font-family: 'Merriweather', serif;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--bookAccent);
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        background: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: none;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes slideIn {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+      }
+
+      @media (min-width: 768px) {
+        .nav-links {
+          display: flex;
+          gap: 2rem;
+        }
+
+        .nav-links a {
+          color: var(--bookText);
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+          color: var(--bookPrimary);
+        }
+
+        .nav-buttons {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+        }
+
+        .nav-btn {
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 0.25rem;
+          cursor: pointer;
+          transition: opacity 0.3s ease;
+        }
+
+        .sign-in {
+          background: none;
+          color: var(--bookText);
+        }
+
+        .sign-up {
+          background-color: var(--bookPrimary);
+          color: white;
+        }
+
+        .mobile-menu-btn {
+          display: none;
+        }
+
+        .hero-content {
+          flex-direction: row;
+          text-align: left;
+          justify-content: space-between;
+        }
+
+        .hero-text {
+          flex: 1;
+        }
+
+        .hero-image {
+          flex: 1;
+        }
+
+        .newsletter-form {
+          display: flex;
+          gap: 1rem;
+        }
+
+        .newsletter-input {
+          margin-bottom: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container nav-container">
+        <h1 class="logo">TheBookShelf</h1>
+        <nav class="nav-links">
+          <a href="home.html">Home</a>
+          <a href="../ContactUsPage/ContactUsPage.html">Contact Us</a>
+          <a href="../About/AboutUs.html">About</a>
+        </nav>
+        <div class="nav-buttons">
+          <button class="nav-btn sign-in" onclick="window.location.href='../SignInForms/SignIn.html'">Sign In</button>
+          <button class="nav-btn sign-up" onclick="window.location.href='../SignUpForms/Form.html'">Sign Up</button>
+          <button class="nav-btn cart" onclick="window.location.href='../UserDashboard/userdashboard.html'">🛒</button>
+        </div>
+        <button class="mobile-menu-btn">☰</button>
+      </div>
+    </header>
+
+    <section class="hero-section">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <h1>Discover Your Next Favorite Book</h1>
+          <p>Explore our vast collection of books from bestselling authors and emerging voices.</p>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" alt="Books Collection">
+        </div>
+      </div>
+    </section>
+
+    <section class="books-section">
+      <div class="container">
+        <h2 class="section-title">Featured Books</h2>
+        <div class="books-grid" id="booksGrid"></div>
+      </div>
+    </section>
+
+    <section class="newsletter-section">
+      <div class="container">
+        <h3>Stay Updated</h3>
+        <p>Subscribe to our newsletter for the latest book releases and special offers.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+          <button type="submit" class="add-to-cart-btn">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-section">
+          <h4>About</h4>
+          <ul class="footer-links">
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Connect</h4>
+          <ul class="footer-links">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container" style="text-align: center; margin-top: 2rem;">
+        <p>&copy; 2024 BookStore. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // Book data
+      const books = [
+        {
+          id: '1',
+          title: 'The Great Gatsby',
+          author: 'F. Scott Fitzgerald',
+          price: 14.99,
+          coverImage: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=60',
+        },
+        {
+          id: '2',
+          title: 'To Kill a Mockingbird',
+          author: 'Harper Lee',
+          price: 12.99,
+          coverImage: 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=800&q=60',
+        },
+        {
+          id: '3',
+          title: '1984',
+          author: 'George Orwell',
+          price: 11.99,
+          coverImage: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=800&q=60',
+        },
+        {
+          id: '4',
+          title: 'Pride and Prejudice',
+          author: 'Jane Austen',
+          price: 13.99,
+          coverImage: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=60',
+        }
+      ];
+
+      // Mobile menu functionality
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const navLinks = document.querySelector('.nav-links');
+      const navButtons = document.querySelector('.nav-buttons');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        navButtons.style.display = navButtons.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      // Render books
+      const booksGrid = document.getElementById('booksGrid');
+      
+      books.forEach(book => {
+        const bookCard = document.createElement('div');
+        bookCard.className = 'book-card';
+        bookCard.innerHTML = `
+          <img src="${book.coverImage}" alt="${book.title}" class="book-image">
+          <h4 class="book-title">${book.title}</h4>
+          <p>${book.author}</p>
+          <p class="book-price">$${book.price.toFixed(2)}</p>
+          <button class="add-to-cart-btn" onclick="addToCart('${book.title}')">Add to Cart</button>
+        `;
+        booksGrid.appendChild(bookCard);
+      });
+
+      // Toast notification
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000);
+      }
+
+      // Add to cart functionality
+      function addToCart(title) {
+        showToast(`${title} has been added to your cart.`);
+      }
+
+      // Newsletter form
+      const newsletterForm = document.getElementById('newsletterForm');
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = e.target.querySelector('input').value;
+        showToast('Thank you for subscribing!');
+        e.target.reset();
+      });
+    </script>
+  </body>
+</html>

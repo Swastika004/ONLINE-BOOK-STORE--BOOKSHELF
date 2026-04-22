@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <style>
+        .form-page {
+            display: none;
+        }
+
+        .form-page.active {
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="Form.css">
+</head>
+
+<body>
+    <form class="form" method="POST" action="http://localhost:8080/TheBookShelf/Form1">
+        <!-- Page 1 -->
+        <div class="form-page active" id="page1">
+            <header>Sign Up Form</header>
+
+            <div class="input-box">
+                <label for="input1">First Name :</label>
+                <input type="text" id="input1" name="firstname" placeholder="First Name" required>
+            </div>
+
+
+            <div class="input-box">
+                <label for="input2">Last Name :</label>
+                <input type="text" id="input2" name="lastname" placeholder="Optional">
+
+            </div>
+
+
+            <div class="input-box">
+                <label for="input3">Email :</label>
+                <input type="email" id="input3" name="email" placeholder="Email" required>
+            </div>
+
+
+            <div class="column">
+
+                <div class="input-box">
+
+                    <label for="input4">Date Of Birth :</label>
+                    <input type="date" id="input4" name="dob" required>
+
+                </div>
+
+
+                <div class="input-box">
+
+
+                    <label for="input5">Phone :</label>
+                    <input type="tel" id="input5" name="phone" placeholder="Number" required>
+
+                </div>
+
+            </div>
+
+            <button type="button" onclick="clearPage(1)">Clear</button>
+            <button type="button" onclick="goToPage(2)">Next</button>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="form-page" id="page2">
+            <header>Sign Up Form</header>
+
+            <div class="input-box">
+
+
+                <label for="input6">Address :</label>
+                <input type="text" id="input6" name="address" placeholder="Enter Address" required>
+
+                <br><br>
+
+                <label for="input7">Gender :</label>
+                <select name="gender" class="gen"  id="input7" required>
+                    <option value="">--Select Please--</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Custom">Custom</option>
+                    <option value="Rather Not to Say">Rather Not to Say</option>
+                </select>
+
+                <div class="column">
+
+                    <div class="input-box">
+
+                        <label for="input8">City :</label>
+                        <input type="text" id="input8" name="city" placeholder="City" required>
+
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <label for="input9">State :</label>
+                        <input type="text" id="input9" name="state" placeholder="Enter your state" required>
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="column">
+
+                    <div class="input-box">
+
+                        <label for="input10">Country :</label>
+                        <input type="text" id="input10" name="country" placeholder="Enter your country" required>
+
+
+                    </div>
+
+                    <div class="input-box">
+
+                        <label for="input11">Pincode :</label>
+                        <input type="text" id="input11" name="pincode" placeholder="Enter your pincode" required>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        
+
+
+            <button type="button" onclick="goToPage(1)">Back</button>
+            <button type="button" onclick="goToPage(3)">Next</button>
+        </div>
+
+        <!-- Page 3 -->
+        <div class="form-page" id="page3">
+            <header>Password Creation</header>
+
+            <div class="input-box">
+                <label for="input12">Username :</label>
+                <input type="text" id="input12" name="username" placeholder="Enter Username" required>
+            </div>
+
+            <div class="input-box">
+
+                <label for="input13">Password :</label>
+                <input type="text" id="input13" name="password" placeholder="Create Password" required>
+            </div>
+
+            <div class="input-box">
+
+
+                <label for="input14">Confirm Password :</label>
+                <input type="text" id="input14" name="confirmpassword" placeholder="Confirm Password" required>
+
+                <br>
+                <br>
+
+                <h3>Password can only contain Alphabets, Numbers, @, $, &.</h3>
+
+            </div>
+
+
+
+            <button type="button" onclick="goToPage(2)">Back</button>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        function goToPage(pageNumber) {
+            // Hide all pages
+            document.querySelectorAll('.form-page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show the requested page
+            document.getElementById(`page${pageNumber}`).classList.add('active');
+        }
+
+        function clearPage(pageNumber) {
+            // Clear all inputs on the specified page
+            document.getElementById(`page${pageNumber}`).querySelectorAll('input').forEach(input => {
+                input.value = '';
+            });
+        }
+    </script>
+</body>
+
+</html>
